@@ -13,6 +13,13 @@ import java.util.UUID;
 @RestController
 public class RestAppController {
 
+    @RequestMapping(value= "/rest/do/Action")//Devuelve mensaje JSON
+    @RequestMapping(value= "/rest/getCurrentStatus")////Devulve mensaje Status en JSON
+    @RequestMapping(value= "/rest/getStats")//Devuelve mensaje Stats
+    @RequestMapping(value= "/rest/render/RenderType")//Devuelve String como body
+    @RequestMapping(value= "/rest/new")//Devolver LifeBeing
+    @RequestMapping(value = "/rest/getActions")//Devolver listado IActions
+
     /**
      * Check it works perfectly
      *
