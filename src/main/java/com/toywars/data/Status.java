@@ -1,7 +1,5 @@
 package com.toywars.data;
 
-import java.util.Date;
-
 /**
  * La clase Status representará el nivel y los puntos obtenidos durante la partida.
  * El nivel solo podrá aumentar, de forma que cada cambio de estado sumará de 0 a n niveles al actual.
@@ -28,8 +26,8 @@ public class Status {
 
     // Contructor vacío. Inicializa puntos y nivel iniciales.
     public Status() {
-        initialPoints = 0;
-        initialLevel = 1;
+        this.initialPoints = 0;
+        this.initialLevel = 1;
     }
 
     // Contructor. Inicializa puntos y nivel iniciales.

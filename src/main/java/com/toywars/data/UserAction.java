@@ -1,7 +1,5 @@
 package com.toywars.data;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,16 +19,23 @@ import java.util.List;
  * ¿Aquí se deberían añadir las acciones del enum Action? Es decir, hay implementar
  * la clase Action?
  *
- * TODO ¿Para qué sirve esta clase? ¿No prodríamos añadir sus funcionalidades a la clase GameService?
+ * TODO ¿Para qué sirve esta clase? ¿No podríamos añadir sus funcionalidades a la clase GameService?
  */
 public class UserAction {
 
-    /*No me acuerdo de qué iba a poner aquí*/
-    public static List<Status> initialStatus;
-    public static List<Status> currentStatus;
+    /* Aquí se deberán ir almacenando los niveles y puntuaciones obtenidos por los distintos usuarios
+    * para que se puedan consultar o se muestren por pantalla a cada nueva partida.
+    * Que al finalizar la partida, se muestre un listado de las puntuaciones obtenidas. */
     public static List<Status> finalStatus;
 
-    public List<Status> getStatus() {
-        return null;
+    public UserAction() {
+    }
+
+    public static List<Status> getFinalStatus() {
+        return finalStatus;
+    }
+
+    public static void setFinalStatus(List<Status> finalStatus) {
+        UserAction.finalStatus = finalStatus;
     }
 }
