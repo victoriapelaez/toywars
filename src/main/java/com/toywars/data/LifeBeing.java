@@ -97,6 +97,9 @@ public abstract class LifeBeing implements IAction, IRender {
         return null;
     }
 
+    /*Para utilizar estos métodos (acciones) no es necesario que cada uno de los "Trolls" herede esos métodos,
+    * bastaría con instanciar la clase LifeBeing inicializando la clase del Troll que nos interesa.
+    * E.g.: LifeBeing bluePunkyTroll = new BluePunkyTroll();*/
     @Override
     public void doRun() {
 

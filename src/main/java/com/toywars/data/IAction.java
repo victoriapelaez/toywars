@@ -12,7 +12,7 @@ public interface IAction {
 
     public List<Action> getCurrentAction();
 
-    /* TODO Y esto pa qué!!
+    /* TODO Y esto pa qué!?
     * Estos métodos están declarados como void ¿Es correcto o deben devolver algo?
     * */
     public void doRun();
