@@ -1,0 +1,31 @@
+
+*{
+    margin-top: 30pt;
+    margin-bottom: 30pt;
+    margin-left: 30pt;
+    margin-right: 30pt;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    text-align: center;
+
+}
+header{
+    background-image: url("../img/trolls.jpg");
+    border-style: solid;
+    border-color: red;
+    background-size:cover;
+}
+
+button{
+    border-radius: 30%;
+    color: red;
+}
+aside{
+    float: right;
+    width: 400px;
+    height: auto;
+}
+section{
+    float: left;
+    width: 600px;
+    height: auto;
+}
