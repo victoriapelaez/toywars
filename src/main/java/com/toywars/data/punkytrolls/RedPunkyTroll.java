@@ -16,7 +16,9 @@ public class RedPunkyTroll extends LifeBeing {
     public RedPunkyTroll() {
     }
 
-    public RedPunkyTroll(Status status, String toyName, Integer healthPoints, Integer strength, Integer intelligence, Integer agility, Integer charm) {
-        super(status, toyName, healthPoints, strength, intelligence, agility, charm);
+    public RedPunkyTroll(Status status, String toyName) {
+        super(status, toyName, 9999, 78, 34, 89, 14);
     }
+
+
 }

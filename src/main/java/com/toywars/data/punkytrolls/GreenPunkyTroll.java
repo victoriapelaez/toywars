@@ -12,6 +12,13 @@ import java.util.List;
  */
 public class GreenPunkyTroll extends LifeBeing {
 
+    public GreenPunkyTroll() {
+    }
+
+    public GreenPunkyTroll(Status status, String toyName) {
+        super(status, toyName, 6547, 25, 43, 62, 99);
+    }
+
     @Override
     public List<Action> getCurrentAction() {
         return super.getCurrentAction();

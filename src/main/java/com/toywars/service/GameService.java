@@ -5,9 +5,13 @@ import com.toywars.data.LifeBeing;
 import com.toywars.data.Status;
 import com.toywars.data.UserAction;
 import com.toywars.data.punkytrolls.BluePunkyTroll;
+import com.toywars.data.punkytrolls.BrownPunkyTroll;
+import com.toywars.data.punkytrolls.GreenPunkyTroll;
 import com.toywars.data.punkytrolls.RedPunkyTroll;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 @Service
@@ -15,6 +19,8 @@ public class GameService {
 
     private Integer maxPoints; // Puntución máxima total del juego.
     private LifeBeing currentLifeBeing; // TODO ¿Estoooo qué? ¿Es correcto?
+
+    private static List<LifeBeing> lifeBeingList = new ArrayList<>();
 
     // Trolls
     private LifeBeing redPunkyTroll; // ¿Debe o puede ser static? ¿Debe declararse como variable global o local?
@@ -38,28 +44,28 @@ public class GameService {
      * ¿como reflejamos eso? ¿implementando los métodos de las acciones en la clase del Troll?
      * Si esto es muy complicado, se dejan todas las acciones como genéricas y per avall.
      * */
-    public void doAction(Action action) {
+    public void doAction(String color, Action action) {
         // Hacer un if para cada uno de los punkytrolls, ya que la puntuación no es la misma en cada caso.
-        if (userPunky == this.redPunkyTroll) {
+        if (color.equalsIgnoreCase("red")) {
             switch (action) {
                 case RUN:
-                    this.status.setCurrentPoints(status.getCurrentPoints() + 50); // ¿Así sumamos 50 puntos a los actuales?
-                    this.status.setCurrentLevel(status.getCurrentLevel() + 6);
+                    this.status.setCurrentPoints(this.status.getCurrentPoints() + 50); // ¿Así sumamos 50 puntos a los actuales?
+                    this.status.setCurrentLevel(this.status.getCurrentLevel() + 6);
                     break;
                 case PEE:
-                    this.status.setCurrentPoints(status.getCurrentPoints() + 3);
-                    this.status.setCurrentLevel(status.getCurrentLevel() + 1);
+                    this.status.setCurrentPoints(this.status.getCurrentPoints() + 3);
+                    this.status.setCurrentLevel(this.status.getCurrentLevel() + 1);
                     break;
                 case SLEEP:
-                    this.status.setCurrentPoints(status.getCurrentPoints() + 25);
-                    this.status.setCurrentLevel(status.getCurrentLevel() + 3);
+                    this.status.setCurrentPoints(this.status.getCurrentPoints() + 25);
+                    this.status.setCurrentLevel(this.status.getCurrentLevel() + 3);
                     break;
                 case BURN:
-                    this.status.setCurrentPoints(status.getCurrentPoints() + -100);
-                    this.status.setCurrentLevel(status.getCurrentLevel());
+                    this.status.setCurrentPoints(this.status.getCurrentPoints() + -100);
+                    this.status.setCurrentLevel(this.status.getCurrentLevel());
                     break;
                 default:
-                    this.status.setCurrentPoints(status.getCurrentLevel());
+                    this.status.setCurrentPoints(this.status.getCurrentPoints());
                     break;
             }
         }
@@ -71,15 +77,19 @@ public class GameService {
      *
      * Si debemos reiniciar el juego completo, ¿tenemos que reiniciar cada uno de los trolls?
      *
-     * Los valores de este método deberíamos añadirlos a algunba lista
+     * Los valores de este método deberíamos añadirlos a alguna lista
      * */
     public void resetLifeBeing() {
-        redPunkyTroll = new RedPunkyTroll(this.status, "Miquel", 9999, 78, 34, 89, 14); // Runner
-        bluePunkyTroll = new BluePunkyTroll(this.status, "Marta", 1457, 32, 98, 33, 76); // Student
-        brownPunkyTroll = new BluePunkyTroll(this.status, "Bernat", 4587, 48, 56, 3, 23); // Cook
-        greenPunkyTroll = new BluePunkyTroll(this.status, "Carme", 6547, 25, 43, 62, 99); // Guitar player
-        this.status.getInitialLevel();
-        this.status.getInitialPoints();
+        redPunkyTroll = new RedPunkyTroll(this.status, "Miquel"); // Runner
+        bluePunkyTroll = new BluePunkyTroll(this.status, "Marta"); // Student
+        brownPunkyTroll = new BrownPunkyTroll(this.status, "Bernat"); // Cook
+        greenPunkyTroll = new GreenPunkyTroll(this.status, "Carme"); // Guitar player
+        lifeBeingList.add(redPunkyTroll);
+        lifeBeingList.add(bluePunkyTroll);
+        lifeBeingList.add(brownPunkyTroll);
+        lifeBeingList.add(greenPunkyTroll);
+        status.setCurrentLevel(1);
+        status.setCurrentPoints(0);
     }
 
     /*Devuelve renderizado del LifeBeing*/
@@ -109,9 +119,23 @@ public class GameService {
         }
         return actionsPermited;
     }
+    /* A nes nene li agraden les llistes. Com que la longitud de l'array és només de 3, no hi hauria massa diferència
+     * en usar un sistema o s'altre, cert?
+     */
+    public List<Action> getActionsList() {
+        List<Action> actionsPermited = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            actionsPermited.add(Action.values()[new Random().nextInt(Action.values().length)]);
+        }
+        return actionsPermited;
+    }
 
     /*Listado de los cambios*/
     public void getUserActions() {
+        // Devolver acción realizada y puntuación obtenida tras esa acción.
+    }
 
+    public static List<LifeBeing> getLifeBeingList() {
+        return lifeBeingList;
     }
 }

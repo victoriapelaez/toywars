@@ -15,8 +15,8 @@ public class BluePunkyTroll extends LifeBeing {
     public BluePunkyTroll() {
     }
 
-    public BluePunkyTroll(Status status, String toyName, Integer healthPoints, Integer strength, Integer intelligence, Integer agility, Integer charm) {
-        super(status, toyName, healthPoints, strength, intelligence, agility, charm);
+    public BluePunkyTroll(Status status, String toyName) {
+        super(status, toyName, 1457, 32, 98, 33, 76);
     }
 
     @Override

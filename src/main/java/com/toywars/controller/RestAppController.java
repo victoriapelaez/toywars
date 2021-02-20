@@ -1,15 +1,12 @@
 package com.toywars.controller;
 
-import com.toywars.data.Action;
-import com.toywars.data.LifeBeing;
-import com.toywars.data.RenderType;
-import com.toywars.data.Status;
+import com.toywars.data.*;
+import com.toywars.data.punkytrolls.BluePunkyTroll;
+import com.toywars.data.punkytrolls.RedPunkyTroll;
+import com.toywars.service.GameService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,28 +15,72 @@ import java.util.UUID;
 @RestController
 public class RestAppController {
 
-    @RequestMapping(value = "/rest/do/Action")//Devuelve mensaje JSON
+    /**
+     * A method that shows the actions permitted to the user. There ara some other actions, but the method just shows
+     * three of them, chosen randomly.
+     *
+     * @return Returns a list of actions of length 3.
+     */
+    @RequestMapping(value = "/rest/do/Action") //Devuelve mensaje JSON
     public List<Action> doAction() {
-        return null;
+        GameService gameService = new GameService();
+        return gameService.getActionsList();
     }
-    @RequestMapping(value = "/rest/getCurrentStatus")////Devulve mensaje Status en JSON
+
+    @RequestMapping(value = "/rest/getCurrentStatus") //Devulve mensaje Status en JSON
     public List<Status> getCurrentStatus() {
         return null;
     }
-    @RequestMapping(value = "/rest/getStats")//Devuelve mensaje Stats
+
+    @RequestMapping(value = "/rest/getStats") //Devuelve mensaje Stats
     public List<Status> getStats() {
         return null;
     }
-    @RequestMapping(value = "/rest/render/RenderType")//Devuelve String como body
+
+    @RequestMapping(value = "/rest/render/RenderType") //Devuelve String como body
     public List<RenderType> render() {
         return null;
     }
+
+    /**
+     * Method that calls GameService's resetLifeBeing method to restart the game.
+     * Restart the game means set points to 0 and level to 1.
+     * This methos also put all the Trolls into an array to get them to the user.
+     * Then the user has to chose a Troll and put it a name.
+     *
+     * @return Returns the list of Trolls.
+     */
     @RequestMapping(value = "/rest/new")//Devolver LifeBeing
-    public LifeBeing newGame() {
+    public LifeBeing newGame(@RequestParam String colour,
+                             @RequestParam String toyName) {
+
+        /*Si en cridat al new Troll ja feim un new Status, si posam que el constructor de Status inicialitzi
+        * els punts i el nivell a o i 1 respectivament, ¿podem eliminar el mètode resetLifeBeing de gameService?
+        * Seria interesant potser mostrar a l'usuari una llista amb els quatre Trolls i els seus
+        * stats (vida, força, ...) i que ell en trii un dels quatre i s'inicii la partida. D'aquesta manera seria
+        * útil el mètode resetLifeBeing.*/
+        GameService gameService = new GameService();
+        gameService.resetLifeBeing();
+
+        if (colour.equalsIgnoreCase("red")) {
+            return new RedPunkyTroll(new Status(), toyName);
+        } else if (colour.equalsIgnoreCase("blue")) {
+            return new BluePunkyTroll(new Status(), toyName);
+        } else if (colour.equalsIgnoreCase("brown")) {
+            return new BluePunkyTroll(new Status(), toyName);
+        } else if (colour.equalsIgnoreCase("green")) {
+            return new BluePunkyTroll(new Status(), toyName);
+        }
         return null;
     }
+
+    /**
+     *
+     * @return
+     */
     @RequestMapping(value = "/rest/getActions")//Devolver listado IActions
     public List<Action> getActions() {
+        UserAction.userDoneActionsList.add(caca);
         return null;
     }
 
