@@ -49,66 +49,58 @@ public class GameService {
         if (color.equalsIgnoreCase("red")) {
             switch (action) {
                 case RUN:
-                    this.status.setCurrentPoints(this.status.getCurrentPoints() + 200); // ¿Así sumamos 50 puntos a los actuales?
-                    this.status.setCurrentLevel(this.status.getCurrentLevel() + 10);
+                    this.currentLifeBeing.doRun();
                     break;
                 case PLAY:
-                    this.status.setCurrentPoints(this.status.getCurrentPoints() + 20);
-                    this.status.setCurrentLevel(this.status.getCurrentLevel() + 3);
+                    this.currentLifeBeing.doPlay();
                     break;
                 case EAT:
+                    this.currentLifeBeing.doEat();
+                    break;
                 case SLEEP:
-                    this.status.setCurrentPoints(this.status.getCurrentPoints() + 30);
-                    this.status.setCurrentLevel(this.status.getCurrentLevel() + 4);
+                    this.currentLifeBeing.doSleep();
                     break;
                 case REST:
+                    this.currentLifeBeing.doRest();
+                    break;
                 case WALK:
-                    this.status.setCurrentPoints(this.status.getCurrentPoints() + 15);
-                    this.status.setCurrentLevel(this.status.getCurrentLevel() + 2);
+                    this.currentLifeBeing.doWalk();
                     break;
                 case DIE:
-                    this.status.setCurrentPoints(0);
-                    this.status.setCurrentLevel(1);
+                    this.currentLifeBeing.doDie();
                     break;
                 case PEE:
-                    this.status.setCurrentPoints(this.status.getCurrentPoints() + 3);
-                    this.status.setCurrentLevel(this.status.getCurrentLevel()); // Posar això no té sentit ve?
+                    this.currentLifeBeing.doPee();
                     break;
                 case FIGHT:
-                    this.status.setCurrentPoints(this.status.getCurrentPoints() - 25);
-                    this.status.setCurrentLevel(this.status.getCurrentLevel());
+                    this.currentLifeBeing.doFight();
                     break;
                 case SING:
-                    this.status.setCurrentPoints(this.status.getCurrentPoints() + 5);
-                    this.status.setCurrentLevel(this.status.getCurrentLevel() + 1);
+                    this.currentLifeBeing.doSing();
                     break;
                 case EXPLODE:
-                    this.status.setCurrentPoints(this.status.getCurrentPoints() - 100);
-                    this.status.setCurrentLevel(this.status.getCurrentLevel());
+                    this.currentLifeBeing.doExplode();
                     break;
                 case EXPLORE:
+                    this.currentLifeBeing.doExplore();
+                    break;
                 case PLAY_GUITAR:
-                    this.status.setCurrentPoints(this.status.getCurrentPoints() + 10);
-                    this.status.setCurrentLevel(this.status.getCurrentLevel() + 3);
+                    this.currentLifeBeing.doPlay_guitar();
                     break;
                 case SPIT_FIRE:
-                    this.status.setCurrentPoints(this.status.getCurrentPoints() - 5);
-                    this.status.setCurrentLevel(this.status.getCurrentLevel());
+                    this.currentLifeBeing.doSpit_fire();
                     break;
                 case STUDY:
-                    this.status.setCurrentPoints(this.status.getCurrentPoints() + 10);
-                    this.status.setCurrentLevel(this.status.getCurrentLevel() + 30);
+                    this.currentLifeBeing.doStudy();
                     break;
                 case CODE:
-                    this.status.setCurrentPoints(this.status.getCurrentPoints() + 1);
-                    this.status.setCurrentLevel(this.status.getCurrentLevel());
+                    this.currentLifeBeing.doCode();
                     break;
                 case BURN:
-                    this.status.setCurrentPoints(this.status.getCurrentPoints() - 50);
-                    this.status.setCurrentLevel(this.status.getCurrentLevel());
+                    this.currentLifeBeing.doBurn();
                     break;
                 default:
-                    this.status.setCurrentPoints(this.status.getCurrentPoints());
+                    /*TODO this.status.setCurrentPoints(this.status.getCurrentPoints());*/
                     break;
             }
         }
@@ -123,14 +115,6 @@ public class GameService {
      * Los valores de este método deberíamos añadirlos a alguna lista
      * */
     public void resetLifeBeing() {
-        redPunkyTroll = new RedPunkyTroll(this.status, "Miquel"); // Runner
-        bluePunkyTroll = new BluePunkyTroll(this.status, "Marta"); // Student
-        brownPunkyTroll = new BrownPunkyTroll(this.status, "Bernat"); // Cook
-        greenPunkyTroll = new GreenPunkyTroll(this.status, "Carme"); // Guitar player
-        lifeBeingList.add(redPunkyTroll);
-        lifeBeingList.add(bluePunkyTroll);
-        lifeBeingList.add(brownPunkyTroll);
-        lifeBeingList.add(greenPunkyTroll);
         status.setCurrentLevel(1);
         status.setCurrentPoints(0);
     }
@@ -142,9 +126,9 @@ public class GameService {
 
     // Devuelve el status del LifeBeing
     public void getStatus() {
-        this.status.getFinalLevel();
-        this.status.getFinalScore();
-        UserAction.finalStatus.add(status); // Recogemos el nivel y los puntos finales para mostrarlos al usuario.
+        this.status.setFinalLevel(status.getCurrentLevel());
+        this.status.setFinalScore(status.getCurrentPoints());
+        UserAction.finalStatus.add(this.status); // Recogemos el nivel y los puntos finales para mostrarlos al usuario.
     }
 
     /* Mostrará solo las acciones que cada tipo de punkytroll puede hacer, ya que algunas son exclusivas de cada uno.
@@ -180,5 +164,9 @@ public class GameService {
 
     public static List<LifeBeing> getLifeBeingList() {
         return lifeBeingList;
+    }
+
+    public void setCurrentLifeBeing(LifeBeing currentLifeBeing) {
+        this.currentLifeBeing = currentLifeBeing;
     }
 }

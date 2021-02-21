@@ -2,6 +2,8 @@ package com.toywars.controller;
 
 import com.toywars.data.*;
 import com.toywars.data.punkytrolls.BluePunkyTroll;
+import com.toywars.data.punkytrolls.BrownPunkyTroll;
+import com.toywars.data.punkytrolls.GreenPunkyTroll;
 import com.toywars.data.punkytrolls.RedPunkyTroll;
 import com.toywars.service.GameService;
 import org.springframework.http.HttpStatus;
@@ -37,12 +39,20 @@ public class RestAppController {
 
     @RequestMapping(value = "/rest/getCurrentStatus") //Devulve mensaje Status en JSON
     public List<Status> getCurrentStatus() {
-        return null;
+        return LifeBeing ;
     }
 
+    /**
+     * This method calls the getStatus method from GameService to set the current score at the final game as the final
+     * score and returns a list of the final scores (points and levels) reached by the user during all the games played.
+     *
+     * @return Returns a list of status.
+     */
     @RequestMapping(value = "/rest/getStats") //Devuelve mensaje Stats
     public List<Status> getStats() {
-        return null;
+        GameService gameService = new GameService();
+        gameService.getStatus();
+        return UserAction.getFinalStatus();
     }
 
     @RequestMapping(value = "/rest/render/RenderType") //Devuelve String como body
@@ -71,26 +81,29 @@ public class RestAppController {
         GameService gameService = new GameService();
         gameService.resetLifeBeing();
 
+        LifeBeing redPunkyTroll = new RedPunkyTroll(new Status(), toyName);
         if (colour.equalsIgnoreCase("red")) {
-            return new RedPunkyTroll(new Status(), toyName);
+            return redPunkyTroll;
         } else if (colour.equalsIgnoreCase("blue")) {
             return new BluePunkyTroll(new Status(), toyName);
         } else if (colour.equalsIgnoreCase("brown")) {
-            return new BluePunkyTroll(new Status(), toyName);
+            return new BrownPunkyTroll(new Status(), toyName);
         } else if (colour.equalsIgnoreCase("green")) {
-            return new BluePunkyTroll(new Status(), toyName);
+            return new GreenPunkyTroll(new Status(), toyName);
         }
         return null;
+
+        gameService.setCurrentLifeBeing(redPunkyTroll);
     }
 
     /**
      *
      * @return
      */
-    /*El mètode ha de enregistrar les diferents accions realitzades per l'usuari*/
+    /*El mètode ha d'enregistrar les diferents accions realitzades per l'usuari*/
     @RequestMapping(value = "/rest/getActions")//Devolver listado IActions
     public List<Action> getActions() {
-        UserAction.userDoneActionsList.add(caca);
+        UserAction.userActionsDoneList.add(caca);
         return null;
     }
 

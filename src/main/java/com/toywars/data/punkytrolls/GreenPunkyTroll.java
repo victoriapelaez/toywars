@@ -45,56 +45,6 @@ public class GreenPunkyTroll extends LifeBeing {
     }
 
     @Override
-    public Integer getHealthPoints() {
-        return super.getHealthPoints();
-    }
-
-    @Override
-    public void setHealthPoints(Integer healthPoints) {
-        super.setHealthPoints(healthPoints);
-    }
-
-    @Override
-    public Integer getStrength() {
-        return super.getStrength();
-    }
-
-    @Override
-    public void setStrength(Integer strength) {
-        super.setStrength(strength);
-    }
-
-    @Override
-    public Integer getIntelligence() {
-        return super.getIntelligence();
-    }
-
-    @Override
-    public void setIntelligence(Integer intelligence) {
-        super.setIntelligence(intelligence);
-    }
-
-    @Override
-    public Integer getAgility() {
-        return super.getAgility();
-    }
-
-    @Override
-    public void setAgility(Integer agility) {
-        super.setAgility(agility);
-    }
-
-    @Override
-    public Integer getCharm() {
-        return super.getCharm();
-    }
-
-    @Override
-    public void setCharm(Integer charm) {
-        super.setCharm(charm);
-    }
-
-    @Override
     public void doPlay() {
         super.doPlay();
     }
@@ -147,6 +97,8 @@ public class GreenPunkyTroll extends LifeBeing {
     @Override
     public void doPlay_guitar() {
         super.doPlay_guitar();
+        super.getStatus().setCurrentPoints(super.getStatus().getCurrentPoints() + 200);
+        super.getStatus().setCurrentLevel(super.getStatus().getCurrentLevel() + 30);
     }
 
     @Override

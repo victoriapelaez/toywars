@@ -28,7 +28,7 @@ public class UserAction {
     * para que se puedan consultar o se muestren por pantalla a cada nueva partida.
     * Que al finalizar la partida, se muestre un listado de las puntuaciones obtenidas. */
     public static List<Status> finalStatus;
-    public static List<Action> userDoneActionsList = new ArrayList<>();
+    public static List<Action> userActionsDoneList = new ArrayList<>();
 
     public UserAction() {
     }

@@ -16,8 +16,8 @@ public class Status {
     private Integer finalLevel;
 
     // Puntos del jugador
-    private Integer finalScore;
     private Integer currentPoints;
+    private Integer finalScore;
 
     // Acciones
     private Action currentAction;
