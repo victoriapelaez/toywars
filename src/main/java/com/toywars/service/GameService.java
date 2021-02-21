@@ -49,19 +49,62 @@ public class GameService {
         if (color.equalsIgnoreCase("red")) {
             switch (action) {
                 case RUN:
-                    this.status.setCurrentPoints(this.status.getCurrentPoints() + 50); // ¿Así sumamos 50 puntos a los actuales?
-                    this.status.setCurrentLevel(this.status.getCurrentLevel() + 6);
+                    this.status.setCurrentPoints(this.status.getCurrentPoints() + 200); // ¿Así sumamos 50 puntos a los actuales?
+                    this.status.setCurrentLevel(this.status.getCurrentLevel() + 10);
+                    break;
+                case PLAY:
+                    this.status.setCurrentPoints(this.status.getCurrentPoints() + 20);
+                    this.status.setCurrentLevel(this.status.getCurrentLevel() + 3);
+                    break;
+                case EAT:
+                case SLEEP:
+                    this.status.setCurrentPoints(this.status.getCurrentPoints() + 30);
+                    this.status.setCurrentLevel(this.status.getCurrentLevel() + 4);
+                    break;
+                case REST:
+                case WALK:
+                    this.status.setCurrentPoints(this.status.getCurrentPoints() + 15);
+                    this.status.setCurrentLevel(this.status.getCurrentLevel() + 2);
+                    break;
+                case DIE:
+                    this.status.setCurrentPoints(0);
+                    this.status.setCurrentLevel(1);
                     break;
                 case PEE:
                     this.status.setCurrentPoints(this.status.getCurrentPoints() + 3);
+                    this.status.setCurrentLevel(this.status.getCurrentLevel()); // Posar això no té sentit ve?
+                    break;
+                case FIGHT:
+                    this.status.setCurrentPoints(this.status.getCurrentPoints() - 25);
+                    this.status.setCurrentLevel(this.status.getCurrentLevel());
+                    break;
+                case SING:
+                    this.status.setCurrentPoints(this.status.getCurrentPoints() + 5);
                     this.status.setCurrentLevel(this.status.getCurrentLevel() + 1);
                     break;
-                case SLEEP:
-                    this.status.setCurrentPoints(this.status.getCurrentPoints() + 25);
+                case EXPLODE:
+                    this.status.setCurrentPoints(this.status.getCurrentPoints() - 100);
+                    this.status.setCurrentLevel(this.status.getCurrentLevel());
+                    break;
+                case EXPLORE:
+                case PLAY_GUITAR:
+                    this.status.setCurrentPoints(this.status.getCurrentPoints() + 10);
                     this.status.setCurrentLevel(this.status.getCurrentLevel() + 3);
                     break;
+                case SPIT_FIRE:
+                    this.status.setCurrentPoints(this.status.getCurrentPoints() - 5);
+                    this.status.setCurrentLevel(this.status.getCurrentLevel());
+                    break;
+                case STUDY:
+                    this.status.setCurrentPoints(this.status.getCurrentPoints() + 10);
+                    this.status.setCurrentLevel(this.status.getCurrentLevel() + 30);
+                    break;
+                case CODE:
+                    this.status.setCurrentPoints(this.status.getCurrentPoints() + 1);
+                    this.status.setCurrentLevel(this.status.getCurrentLevel());
+                    break;
                 case BURN:
-                    this.status.setCurrentPoints(this.status.getCurrentPoints() + -100);
+                    this.status.setCurrentPoints(this.status.getCurrentPoints() - 50);
                     this.status.setCurrentLevel(this.status.getCurrentLevel());
                     break;
                 default:
@@ -92,22 +135,22 @@ public class GameService {
         status.setCurrentPoints(0);
     }
 
-    /*Devuelve renderizado del LifeBeing*/
+    // Devuelve renderizado del LifeBeing
     public void render() {
 
     }
 
-    /*Devuelve el status del LifeBeing*/
+    // Devuelve el status del LifeBeing
     public void getStatus() {
         this.status.getFinalLevel();
         this.status.getFinalScore();
         UserAction.finalStatus.add(status); // Recogemos el nivel y los puntos finales para mostrarlos al usuario.
     }
 
-    /*Mostrará solo las acciones que cada tipo de punkytroll puede hacer, ya que algunas son exclusivas de cada uno.
-    * Otra opción sería que se muestren por pantalla solo tres opciones de todas las acciones del enum y que en cada
-    * jugada, es decir después de cada acción del uysuario, se muestren otras tres opciones.
-    * */
+    /* Mostrará solo las acciones que cada tipo de punkytroll puede hacer, ya que algunas son exclusivas de cada uno.
+     * Otra opción sería que se muestren por pantalla solo tres opciones de todas las acciones del enum y que en cada
+     * jugada, es decir después de cada acción del uysuario, se muestren otras tres opciones.
+     * */
     /**
      * Método que coge tres valores aleatorios de las acciones del enum Action y los añade a un array de acciones.
      * @return devuelde un array de acciones de longitud 3.
@@ -130,7 +173,7 @@ public class GameService {
         return actionsPermited;
     }
 
-    /*Listado de los cambios*/
+    // Listado de los cambios
     public void getUserActions() {
         // Devolver acción realizada y puntuación obtenida tras esa acción.
     }

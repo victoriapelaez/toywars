@@ -19,11 +19,19 @@ public class RestAppController {
      * A method that shows the actions permitted to the user. There ara some other actions, but the method just shows
      * three of them, chosen randomly.
      *
+     * Also it calls the doAction method from the GameService class, which, depending on the Troll type and the
+     * action done by the user, it add some levels and add or subtract some points from the Status attributes
+     * currentPoints and currentLevel.
+     *
      * @return Returns a list of actions of length 3.
      */
+    /*No hauria de demanar el color, un cop triat el troll al inici de la partida (mètode newGame) el triatge de les
+     * respostes a les accions hauria de ser automàtic, però això no se com implementar-ho*/
     @RequestMapping(value = "/rest/do/Action") //Devuelve mensaje JSON
-    public List<Action> doAction() {
+    public List<Action> doAction(@RequestParam String color,
+                                 @RequestParam Action action) {
         GameService gameService = new GameService();
+        gameService.doAction(color, action);
         return gameService.getActionsList();
     }
 
@@ -45,7 +53,8 @@ public class RestAppController {
     /**
      * Method that calls GameService's resetLifeBeing method to restart the game.
      * Restart the game means set points to 0 and level to 1.
-     * This methos also put all the Trolls into an array to get them to the user.
+     *
+     * This method also put all the Trolls into an array to get them to the user.
      * Then the user has to chose a Troll and put it a name.
      *
      * @return Returns the list of Trolls.
@@ -78,6 +87,7 @@ public class RestAppController {
      *
      * @return
      */
+    /*El mètode ha de enregistrar les diferents accions realitzades per l'usuari*/
     @RequestMapping(value = "/rest/getActions")//Devolver listado IActions
     public List<Action> getActions() {
         UserAction.userDoneActionsList.add(caca);
