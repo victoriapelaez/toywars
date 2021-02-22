@@ -1,11 +1,8 @@
 package com.toywars.service;
 
-import com.toywars.data.Action;
-import com.toywars.data.LifeBeing;
-import com.toywars.data.Status;
-import com.toywars.data.UserAction;
+import com.toywars.data.*;
 import com.toywars.data.punkytrolls.BluePunkyTroll;
-import com.toywars.data.punkytrolls.BrownPunkyTroll;
+import com.toywars.data.punkytrolls.PinkPunkyTroll;
 import com.toywars.data.punkytrolls.GreenPunkyTroll;
 import com.toywars.data.punkytrolls.RedPunkyTroll;
 import org.springframework.stereotype.Service;
@@ -18,23 +15,31 @@ import java.util.Random;
 public class GameService {
 
     private Integer maxPoints; // Puntución máxima total del juego.
-    private LifeBeing currentLifeBeing; // TODO ¿Estoooo qué? ¿Es correcto?
 
-    private static List<LifeBeing> lifeBeingList = new ArrayList<>();
+    private static final List<LifeBeing> lifeBeingList = new ArrayList<>();
 
-    // Trolls
-    private LifeBeing redPunkyTroll; // ¿Debe o puede ser static? ¿Debe declararse como variable global o local?
-    private LifeBeing bluePunkyTroll;
-    private LifeBeing brownPunkyTroll;
-    private LifeBeing greenPunkyTroll;
+    public LifeBeing createTroll(String color, String name) throws Exception {
+        LifeBeing troll;
+        switch (Color.valueOf(color)) {
+            case RED:
+                troll = new RedPunkyTroll(name);
+                break;
+            case BLUE:
+                troll = new BluePunkyTroll(name);
+                break;
+            case GREEN:
+                troll = new GreenPunkyTroll(name);
+                break;
+            case PINK:
+                troll = new PinkPunkyTroll(name);
+                break;
+            default:
+                throw new Exception("Color not found: " + color);
+        }
 
-    /**
-     * Utilizaremos status para ir modificando los puntos y niveles en función de la acción realizada por el usuario.
-     * Nos sirve para el método doAction, en el cual se recogerá la acción del usuario y se cambiará el status
-     * (nivel y puntos) en función de esa acción y el tipo de Troll.
-     * ¿Es interesante declararla como global o la declaramos dentro de doAction?
-     */
-    private Status status = new Status();
+        lifeBeingList.add(troll);
+        return troll;
+    }
 
     /*En función del personaje(Troll) y en función de la acción ejecutada por el usuario se realizará un
      * cambio en el Status.
@@ -46,64 +51,64 @@ public class GameService {
      * */
     public void doAction(String color, Action action) {
         // Hacer un if para cada uno de los punkytrolls, ya que la puntuación no es la misma en cada caso.
-        if (color.equalsIgnoreCase("red")) {
-            switch (action) {
-                case RUN:
-                    this.currentLifeBeing.doRun();
-                    break;
-                case PLAY:
-                    this.currentLifeBeing.doPlay();
-                    break;
-                case EAT:
-                    this.currentLifeBeing.doEat();
-                    break;
-                case SLEEP:
-                    this.currentLifeBeing.doSleep();
-                    break;
-                case REST:
-                    this.currentLifeBeing.doRest();
-                    break;
-                case WALK:
-                    this.currentLifeBeing.doWalk();
-                    break;
-                case DIE:
-                    this.currentLifeBeing.doDie();
-                    break;
-                case PEE:
-                    this.currentLifeBeing.doPee();
-                    break;
-                case FIGHT:
-                    this.currentLifeBeing.doFight();
-                    break;
-                case SING:
-                    this.currentLifeBeing.doSing();
-                    break;
-                case EXPLODE:
-                    this.currentLifeBeing.doExplode();
-                    break;
-                case EXPLORE:
-                    this.currentLifeBeing.doExplore();
-                    break;
-                case PLAY_GUITAR:
-                    this.currentLifeBeing.doPlay_guitar();
-                    break;
-                case SPIT_FIRE:
-                    this.currentLifeBeing.doSpit_fire();
-                    break;
-                case STUDY:
-                    this.currentLifeBeing.doStudy();
-                    break;
-                case CODE:
-                    this.currentLifeBeing.doCode();
-                    break;
-                case BURN:
-                    this.currentLifeBeing.doBurn();
-                    break;
-                default:
-                    /*TODO this.status.setCurrentPoints(this.status.getCurrentPoints());*/
-                    break;
-            }
-        }
+//        if (color.equalsIgnoreCase("red")) {
+//            switch (action) {
+//                case RUN:
+//                    this.currentLifeBeing.doRun();
+//                    break;
+//                case PLAY:
+//                    this.currentLifeBeing.doPlay();
+//                    break;
+//                case EAT:
+//                    this.currentLifeBeing.doEat();
+//                    break;
+//                case SLEEP:
+//                    this.currentLifeBeing.doSleep();
+//                    break;
+//                case REST:
+//                    this.currentLifeBeing.doRest();
+//                    break;
+//                case WALK:
+//                    this.currentLifeBeing.doWalk();
+//                    break;
+//                case DIE:
+//                    this.currentLifeBeing.doDie();
+//                    break;
+//                case PEE:
+//                    this.currentLifeBeing.doPee();
+//                    break;
+//                case FIGHT:
+//                    this.currentLifeBeing.doFight();
+//                    break;
+//                case SING:
+//                    this.currentLifeBeing.doSing();
+//                    break;
+//                case EXPLODE:
+//                    this.currentLifeBeing.doExplode();
+//                    break;
+//                case EXPLORE:
+//                    this.currentLifeBeing.doExplore();
+//                    break;
+//                case PLAY_GUITAR:
+//                    this.currentLifeBeing.doPlay_guitar();
+//                    break;
+//                case SPIT_FIRE:
+//                    this.currentLifeBeing.doSpit_fire();
+//                    break;
+//                case STUDY:
+//                    this.currentLifeBeing.doStudy();
+//                    break;
+//                case CODE:
+//                    this.currentLifeBeing.doCode();
+//                    break;
+//                case BURN:
+//                    this.currentLifeBeing.doBurn();
+//                    break;
+//                default:
+//                    this.status.setCurrentPoints(this.status.getCurrentPoints());
+//                    break;
+//            }
+//        }
     }
 
     /*
@@ -115,8 +120,8 @@ public class GameService {
      * Los valores de este método deberíamos añadirlos a alguna lista
      * */
     public void resetLifeBeing() {
-        status.setCurrentLevel(1);
-        status.setCurrentPoints(0);
+        // status.setCurrentLevel(1);
+        // status.setCurrentPoints(0);
     }
 
     // Devuelve renderizado del LifeBeing
@@ -126,9 +131,9 @@ public class GameService {
 
     // Devuelve el status del LifeBeing
     public void getStatus() {
-        this.status.setFinalLevel(status.getCurrentLevel());
-        this.status.setFinalScore(status.getCurrentPoints());
-        UserAction.finalStatus.add(this.status); // Recogemos el nivel y los puntos finales para mostrarlos al usuario.
+//        this.status.setFinalLevel(status.getCurrentLevel());
+//        this.status.setFinalScore(status.getCurrentPoints());
+//        UserAction.finalStatus.add(this.status); // Recogemos el nivel y los puntos finales para mostrarlos al usuario.
     }
 
     /* Mostrará solo las acciones que cada tipo de punkytroll puede hacer, ya que algunas son exclusivas de cada uno.
@@ -166,7 +171,15 @@ public class GameService {
         return lifeBeingList;
     }
 
+    public static LifeBeing getLifeBeing(String trollName) {
+        return getLifeBeingList()
+                .stream()
+                .filter(lifeBeing -> lifeBeing.getToyName().equals(trollName))
+                .findFirst()
+                .get();
+    }
+
     public void setCurrentLifeBeing(LifeBeing currentLifeBeing) {
-        this.currentLifeBeing = currentLifeBeing;
+        // this.currentLifeBeing = currentLifeBeing;
     }
 }

@@ -3,21 +3,12 @@ package com.toywars.data.punkytrolls;
 import com.toywars.data.LifeBeing;
 import com.toywars.data.Status;
 
-import java.util.List;
-
 /**
  * Runner
  */
 public class RedPunkyTroll extends LifeBeing {
-
-    /*
-     * Cada uno de los trolls tendrá sus propios Status que definiremos en el constructor.
-     * */
-    public RedPunkyTroll() {
-    }
-
-    public RedPunkyTroll(Status status, String toyName) {
-        super(status, toyName, 9999, 78, 34, 89, 14);
+    public RedPunkyTroll(String toyName) {
+        super(new Status(), toyName, 9999, 78, 34, 89, 14);
     }
 
     @Override
@@ -31,20 +22,20 @@ public class RedPunkyTroll extends LifeBeing {
     public void doPlay() {
         super.doPlay();
         super.getStatus().setCurrentPoints(super.getStatus().getCurrentPoints() + 20);
-        super.getStatus().setCurrentLevel(super.getStatus().getCurrentLevel() + 3);
+        super.getStatus().setCurrentLevel(super.getStatus().getCurrentLevel() + 4);
     }
 
     @Override
     public void doEat() {
         super.doEat();
         super.getStatus().setCurrentPoints(super.getStatus().getCurrentPoints() + 30);
-        super.getStatus().setCurrentLevel(super.getStatus().getCurrentLevel() + 4);
+        super.getStatus().setCurrentLevel(super.getStatus().getCurrentLevel() + 6);
     }
 
     @Override
     public void doSleep() {
         super.doSleep();
-        this.doEat(); // És correcte????
+        this.doEat(); // TODO És correcte????
     }
 
     @Override
@@ -57,7 +48,7 @@ public class RedPunkyTroll extends LifeBeing {
     @Override
     public void doWalk() {
         super.doWalk();
-        this.doRest(); // ???????
+        this.doRest(); // TODO ???????
     }
 
     @Override
@@ -89,37 +80,23 @@ public class RedPunkyTroll extends LifeBeing {
     }
 
     @Override
-    public void doExplode() {
-        super.doExplode();
-    }
-
-    @Override
     public void doExplore() {
         super.doExplore();
-    }
-
-    @Override
-    public void doSpit_fire() {
-        super.doSpit_fire();
-    }
-
-    @Override
-    public void doPlay_guitar() {
-        super.doPlay_guitar();
+        super.getStatus().setCurrentPoints(super.getStatus().getCurrentPoints() + 25);
+        super.getStatus().setCurrentLevel(super.getStatus().getCurrentLevel() + 5);
     }
 
     @Override
     public void doStudy() {
         super.doStudy();
-    }
-
-    @Override
-    public void doCode() {
-        super.doCode();
+        super.getStatus().setCurrentPoints(super.getStatus().getCurrentPoints() + 25);
+        super.getStatus().setCurrentLevel(super.getStatus().getCurrentLevel() + 5);
     }
 
     @Override
     public void doBurn() {
         super.doBurn();
+        super.getStatus().setCurrentPoints(super.getStatus().getCurrentPoints() - 100);
+        super.getStatus().setCurrentLevel(super.getStatus().getCurrentLevel());
     }
 }

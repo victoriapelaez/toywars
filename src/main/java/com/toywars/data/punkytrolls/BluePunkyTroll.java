@@ -1,82 +1,62 @@
 package com.toywars.data.punkytrolls;
 
-import com.toywars.data.Action;
 import com.toywars.data.LifeBeing;
-import com.toywars.data.RenderType;
 import com.toywars.data.Status;
-
-import java.util.List;
 
 /**
  * Student
  */
 public class BluePunkyTroll extends LifeBeing {
-
-    public BluePunkyTroll() {
-    }
-
-    public BluePunkyTroll(Status status, String toyName) {
-        super(status, toyName, 1457, 32, 98, 33, 76);
-    }
-
-    @Override
-    public List<Action> getCurrentAction() {
-        return super.getCurrentAction();
-    }
-
-    @Override
-    public Status getStatus() {
-        return super.getStatus();
-    }
-
-    @Override
-    public void setStatus(Status status) {
-        super.setStatus(status);
-    }
-
-    @Override
-    public String getToyName() {
-        return super.getToyName();
-    }
-
-    @Override
-    public void setToyName(String toyName) {
-        super.setToyName(toyName);
+    public BluePunkyTroll(String toyName) {
+        super(new Status(), toyName, 1457, 32, 98, 33, 76);
     }
 
     @Override
     public void doPlay() {
         super.doPlay();
+        super.getStatus().setCurrentPoints(super.getStatus().getCurrentPoints() + 20);
+        super.getStatus().setCurrentLevel(super.getStatus().getCurrentLevel() + 3);
     }
 
     @Override
     public void doEat() {
         super.doEat();
+        super.getStatus().setCurrentPoints(super.getStatus().getCurrentPoints() + 30);
+        super.getStatus().setCurrentLevel(super.getStatus().getCurrentLevel() + 6);
     }
 
     @Override
     public void doRest() {
         super.doRest();
+        super.getStatus().setCurrentPoints(super.getStatus().getCurrentPoints() + 15);
+        super.getStatus().setCurrentLevel(super.getStatus().getCurrentLevel() + 2);
     }
 
     @Override
     public void doWalk() {
         super.doWalk();
+        this.doRest();
     }
 
     @Override
     public void doDie() {
         super.doDie();
+        super.getStatus().setCurrentPoints(0);
+        super.getStatus().setCurrentLevel(1);
     }
 
     @Override
     public void doPee() {
         super.doPee();
+        super.getStatus().setCurrentPoints(super.getStatus().getCurrentPoints() + 3);
+        super.getStatus().setCurrentLevel(super.getStatus().getCurrentLevel());
     }
 
     @Override
     public void doFight() {
         super.doFight();
+        super.getStatus().setCurrentPoints(super.getStatus().getCurrentPoints() - 25);
+        super.getStatus().setCurrentLevel(super.getStatus().getCurrentLevel());
     }
 
     @Override
@@ -119,11 +99,5 @@ public class BluePunkyTroll extends LifeBeing {
         super.doBurn();
         super.getStatus().setCurrentPoints(super.getStatus().getCurrentPoints() - 50);
         super.getStatus().setCurrentLevel(super.getStatus().getCurrentLevel());
-    }
-
-    // TODO ¿Aquí hay que implementar este método?
-    @Override
-    public String doRender(RenderType renderType) {
-        return super.doRender(renderType);
     }
 }
