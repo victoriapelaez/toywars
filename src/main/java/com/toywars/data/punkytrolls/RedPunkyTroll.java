@@ -38,7 +38,7 @@ public class RedPunkyTroll extends LifeBeing {
     @Override
     public void doSleep() {
         super.doSleep();
-        this.doEat(); // TODO És correcte????
+        this.doEat();
     }
 
     @Override
@@ -51,7 +51,7 @@ public class RedPunkyTroll extends LifeBeing {
     @Override
     public void doWalk() {
         super.doWalk();
-        this.doRest(); // TODO ???????
+        this.doRest();
     }
 
     @Override
