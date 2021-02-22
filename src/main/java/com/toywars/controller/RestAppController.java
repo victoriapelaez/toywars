@@ -11,10 +11,21 @@ public class RestAppController {
 
     private static GameService gameService = null;
 
+    /**
+     * Instanciamos la clase GameService.
+     *
+     * @return Devuelve un objeto de tipo GameService.
+     */
     private GameService getGameService() {
         return gameService == null ? new GameService() : gameService;
     }
 
+    /**
+     * Método para resetear el juego.
+     *
+     * @param input Un string que representará el color (o tipo) del PunkyTroll introducido por el esuario.
+     * @return Devuelve un objeto LifeBeing correspondiente al PunkyTroll que ha seleccionado el usuario.
+     */
     @PostMapping(value = "/rest/new")
     public LifeBeing newGame(@RequestBody Map<String, ?> input) {
         GameService gameService = getGameService();
@@ -29,16 +40,28 @@ public class RestAppController {
         }
     }
 
+    /**
+     * Método para mostrar las acciones permitidas por el usuario en un determinado momento. Se seleccionan tres
+     * acciones posibles de todas las que hay en el enum Action.
+     *
+     * @return Devuelve una lista de acciones Action.
+     */
     @GetMapping(value = "/rest/getActions")
     public List<Action> getActions() {
         List<Action> actionsPermitted = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
             actionsPermitted.add(Action.values()[new Random().nextInt(Action.values().length - 1)]);
         }
-
         return actionsPermitted;
     }
 
+    /**
+     * Método que permitirá mostrar el status del troll con un determinado nombre. Dado un string que se corresponde
+     * con el nombre del PunkyTroll introducido por el usuario, nos devolverá su correspondiente objeto LifeBeing.
+     *
+     * @param input Un string con el nombre añadido por el usuario.
+     * @return Devuelve un objeto de tipo LifeBeing correspondiente al PunkyTroll con el nombre introducido.
+     */
     @PostMapping(value = "/rest/getStatus")
     public LifeBeing getStatus(@RequestBody Map<String, ?> input) {
         GameService gameService = getGameService();
@@ -47,54 +70,38 @@ public class RestAppController {
         return GameService.getLifeBeing(trollName);
     }
 
-    /**
-     * A method that shows the actions permitted to the user. There ara some other actions, but the method just shows
-     * three of them, chosen randomly.
-     *
-     * Also it calls the doAction method from the GameService class, which, depending on the Troll type and the
-     * action done by the user, it add some levels and add or subtract some points from the Status attributes
-     * currentPoints and currentLevel.
-     *
-     * @return Returns a list of actions of length 3.
-     */
-    /*No hauria de demanar el color, un cop triat el troll al inici de la partida (mètode newGame) el triatge de les
-     * respostes a les accions hauria de ser automàtic, però això no se com implementar-ho*/
     @GetMapping(value = "/rest/do/{action}") //Devuelve mensaje JSON
-    public List<Action> doAction(@RequestParam String color, @RequestParam Action action) {
-        GameService gameService = new GameService();
-        gameService.doAction(color, action);
-        return gameService.getActionsList();
+    public List<Action> doAction() {
+        return null;
     }
 
+    /**
+     * Método que debe devolver una lista de objetos Status para representar el avance del usuario en el juego y
+     * su puntuación obtenida.
+     *
+     * @return Devuelve una lista de objetos Status.
+     */
     @RequestMapping(value = "/rest/getCurrentStatus") //Devulve mensaje Status en JSON
     public List<Status> getCurrentStatus() {
         return Collections.emptyList();
     }
 
-    /**
-     * This method calls the getStatus method from GameService to set the current score at the final game as the final
-     * score and returns a list of the final scores (points and levels) reached by the user during all the games played.
-     *
-     * @return Returns a list of status.
-     */
     @RequestMapping(value = "/rest/getStats") //Devuelve mensaje Stats
     public List<Status> getStats() {
-        GameService gameService = new GameService();
-        gameService.getStatus();
-        return UserAction.getFinalStatus();
+        return null;
     }
 
+    /**
+     * Método de debe mostrar el tipo de rendecizado que posteriormente elegirá el usuario.
+     *
+     * @return null.
+     */
     @RequestMapping(value = "/rest/render/RenderType") //Devuelve String como body
     public List<RenderType> render() {
         return null;
     }
 
-    /**
-     * Check it works perfectly
-     *
-     * @param uuid
-     * @return
-     */
+
 
 //    @RequestMapping(value = "/get/{uuid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 //    public ResponseEntity<List<RegisterItem>> getRegisterById(@PathVariable UUID uuid) {
