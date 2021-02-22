@@ -1,5 +1,7 @@
 package com.toywars.data;
 
+import static com.toywars.data.Action.CREATE;
+
 /**
  * La clase Status representará el nivel y los puntos obtenidos durante la partida.
  * El nivel solo podrá aumentar, de forma que cada cambio de estado sumará de 0 a n niveles al actual.
@@ -22,17 +24,13 @@ public class Status {
     // Acciones
     private Action currentAction;
 
-    // Contructor vacío. Inicializa puntos y nivel iniciales.
-    public Status() {
-    }
-
     // Contructor. Inicializa puntos y nivel iniciales.
-    public Status(Integer currentLevel, Integer finalLevel, Integer finalScore, Integer currentPoints, Action currentAction) {
-        this.currentLevel = currentLevel;
-        this.finalLevel = finalLevel;
-        this.finalScore = finalScore;
-        this.currentPoints = currentPoints;
-        this.currentAction = currentAction;
+    public Status() {
+        this.currentLevel = 1;
+        this.finalLevel = 1;
+        this.finalScore = 0;
+        this.currentPoints = 0;
+        this.currentAction = CREATE;
     }
 
     public Integer getCurrentLevel() {

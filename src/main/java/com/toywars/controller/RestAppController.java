@@ -1,21 +1,57 @@
 package com.toywars.controller;
 
 import com.toywars.data.*;
-import com.toywars.data.punkytrolls.BluePunkyTroll;
-import com.toywars.data.punkytrolls.BrownPunkyTroll;
-import com.toywars.data.punkytrolls.GreenPunkyTroll;
-import com.toywars.data.punkytrolls.RedPunkyTroll;
 import com.toywars.service.GameService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @RestController
 public class RestAppController {
+
+    private static GameService gameService = null;
+
+    private GameService getGameService() {
+        return gameService == null ? new GameService() : gameService;
+    }
+
+    // TODO No acab de veure què fa això
+    /*String = K
+    * ? = V
+    * input què recull? input és la instància de Map i a Map li estàs dient que el key es de tipus String i el value és el que hagi de ser?
+    * trollType i trollName són els keys del JSON?
+    * get retorna el valor que té assigant un determinat key*/
+    @PostMapping(value = "/rest/new")
+    public LifeBeing newGame(@RequestBody Map<String, ?> input) {
+        GameService gameService = getGameService();
+
+        String trollColor = input.get("trollType").toString();
+        String trollName = input.get("trollName").toString();
+
+        try {
+            return gameService.createTroll(trollColor, trollName);
+        } catch (Exception exp) {
+            return null;
+        }
+    }
+
+    @GetMapping(value = "/rest/getActions")
+    public List<Action> getActions() {
+        List<Action> actionsPermitted = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            actionsPermitted.add(Action.values()[new Random().nextInt(Action.values().length - 1)]);
+        }
+
+        return actionsPermitted;
+    }
+
+    @PostMapping(value = "/rest/getStatus")
+    public LifeBeing getStatus(@RequestBody Map<String, ?> input) {
+        GameService gameService = getGameService();
+
+        String trollName = input.get("trollName").toString();
+        return GameService.getLifeBeing(trollName);
+    }
 
     /**
      * A method that shows the actions permitted to the user. There ara some other actions, but the method just shows
@@ -29,9 +65,8 @@ public class RestAppController {
      */
     /*No hauria de demanar el color, un cop triat el troll al inici de la partida (mètode newGame) el triatge de les
      * respostes a les accions hauria de ser automàtic, però això no se com implementar-ho*/
-    @RequestMapping(value = "/rest/do/Action") //Devuelve mensaje JSON
-    public List<Action> doAction(@RequestParam String color,
-                                 @RequestParam Action action) {
+    @GetMapping(value = "/rest/do/{action}") //Devuelve mensaje JSON
+    public List<Action> doAction(@RequestParam String color, @RequestParam Action action) {
         GameService gameService = new GameService();
         gameService.doAction(color, action);
         return gameService.getActionsList();
@@ -39,7 +74,7 @@ public class RestAppController {
 
     @RequestMapping(value = "/rest/getCurrentStatus") //Devulve mensaje Status en JSON
     public List<Status> getCurrentStatus() {
-        return LifeBeing ;
+        return Collections.emptyList();
     }
 
     /**
@@ -61,67 +96,19 @@ public class RestAppController {
     }
 
     /**
-     * Method that calls GameService's resetLifeBeing method to restart the game.
-     * Restart the game means set points to 0 and level to 1.
-     *
-     * This method also put all the Trolls into an array to get them to the user.
-     * Then the user has to chose a Troll and put it a name.
-     *
-     * @return Returns the list of Trolls.
-     */
-    @RequestMapping(value = "/rest/new")//Devolver LifeBeing
-    public LifeBeing newGame(@RequestParam String colour,
-                             @RequestParam String toyName) {
-
-        /*Si en cridat al new Troll ja feim un new Status, si posam que el constructor de Status inicialitzi
-        * els punts i el nivell a o i 1 respectivament, ¿podem eliminar el mètode resetLifeBeing de gameService?
-        * Seria interesant potser mostrar a l'usuari una llista amb els quatre Trolls i els seus
-        * stats (vida, força, ...) i que ell en trii un dels quatre i s'inicii la partida. D'aquesta manera seria
-        * útil el mètode resetLifeBeing.*/
-        GameService gameService = new GameService();
-        gameService.resetLifeBeing();
-
-        LifeBeing redPunkyTroll = new RedPunkyTroll(new Status(), toyName);
-        if (colour.equalsIgnoreCase("red")) {
-            return redPunkyTroll;
-        } else if (colour.equalsIgnoreCase("blue")) {
-            return new BluePunkyTroll(new Status(), toyName);
-        } else if (colour.equalsIgnoreCase("brown")) {
-            return new BrownPunkyTroll(new Status(), toyName);
-        } else if (colour.equalsIgnoreCase("green")) {
-            return new GreenPunkyTroll(new Status(), toyName);
-        }
-        return null;
-
-        gameService.setCurrentLifeBeing(redPunkyTroll);
-    }
-
-    /**
-     *
-     * @return
-     */
-    /*El mètode ha d'enregistrar les diferents accions realitzades per l'usuari*/
-    @RequestMapping(value = "/rest/getActions")//Devolver listado IActions
-    public List<Action> getActions() {
-        UserAction.userActionsDoneList.add(caca);
-        return null;
-    }
-
-    /**
      * Check it works perfectly
      *
      * @param uuid
      * @return
      */
 
-    // TODO ¿Qué hay que poner en lugar de uuid?
-    @RequestMapping(value = "/get/{uuid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<RegisterItem>> getRegisterById(@PathVariable UUID uuid) {
-        try {
-            return new ResponseEntity<>(analysisService.getDataRegisterById(uuid), HttpStatus.OK);
-        } catch (Exception e) {
-            log.error("register:get/", e);
-            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+//    @RequestMapping(value = "/get/{uuid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<List<RegisterItem>> getRegisterById(@PathVariable UUID uuid) {
+//        try {
+//            return new ResponseEntity<>(analysisService.getDataRegisterById(uuid), HttpStatus.OK);
+//        } catch (Exception e) {
+//            log.error("register:get/", e);
+//            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
 }

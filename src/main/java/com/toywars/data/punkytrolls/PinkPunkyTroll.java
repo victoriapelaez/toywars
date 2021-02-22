@@ -4,11 +4,11 @@ import com.toywars.data.LifeBeing;
 import com.toywars.data.Status;
 
 /**
- * Guitar player
+ * Cook
  */
-public class GreenPunkyTroll extends LifeBeing {
-    public GreenPunkyTroll(String toyName) {
-        super(new Status(), toyName, 6547, 25, 43, 62, 99);
+public class PinkPunkyTroll extends LifeBeing {
+    public PinkPunkyTroll(String toyName) {
+        super(new Status(), toyName, 4587, 48, 56, 3, 23);
     }
 
     @Override
@@ -21,28 +21,28 @@ public class GreenPunkyTroll extends LifeBeing {
     @Override
     public void doEat() {
         super.doEat();
-        super.getStatus().setCurrentPoints(super.getStatus().getCurrentPoints() + 30);
-        super.getStatus().setCurrentLevel(super.getStatus().getCurrentLevel() + 6);
+        super.getStatus().setCurrentPoints(super.getStatus().getCurrentPoints() + 50);
+        super.getStatus().setCurrentLevel(super.getStatus().getCurrentLevel() + 10);
     }
 
     @Override
     public void doSleep() {
         super.doSleep();
-        super.getStatus().setCurrentPoints(super.getStatus().getCurrentPoints() - 30);
-        super.getStatus().setCurrentLevel(super.getStatus().getCurrentLevel());
+        super.getStatus().setCurrentPoints(super.getStatus().getCurrentPoints() + 30);
+        super.getStatus().setCurrentLevel(super.getStatus().getCurrentLevel() + 6);
     }
 
     @Override
     public void doRest() {
         super.doRest();
-        this.doEat();
+        super.getStatus().setCurrentPoints(super.getStatus().getCurrentPoints() + 15);
+        super.getStatus().setCurrentLevel(super.getStatus().getCurrentLevel() + 2);
     }
 
     @Override
     public void doWalk() {
         super.doWalk();
-        super.getStatus().setCurrentPoints(super.getStatus().getCurrentPoints() + 50);
-        super.getStatus().setCurrentLevel(super.getStatus().getCurrentLevel() + 10);
+        this.doRest();
     }
 
     @Override
@@ -69,8 +69,8 @@ public class GreenPunkyTroll extends LifeBeing {
     @Override
     public void doSing() {
         super.doSing();
-        super.getStatus().setCurrentPoints(super.getStatus().getCurrentPoints() + 100);
-        super.getStatus().setCurrentLevel(super.getStatus().getCurrentLevel() + 20);
+        super.getStatus().setCurrentPoints(super.getStatus().getCurrentPoints() + 5);
+        super.getStatus().setCurrentLevel(super.getStatus().getCurrentLevel() + 1);
     }
 
     @Override
@@ -81,16 +81,23 @@ public class GreenPunkyTroll extends LifeBeing {
     }
 
     @Override
-    public void doPlay_guitar() {
-        super.doPlay_guitar();
-        super.getStatus().setCurrentPoints(super.getStatus().getCurrentPoints() + 200);
-        super.getStatus().setCurrentLevel(super.getStatus().getCurrentLevel() + 30);
+    public void doExplore() {
+        super.doExplore();
+        super.getStatus().setCurrentPoints(super.getStatus().getCurrentPoints() + 100);
+        super.getStatus().setCurrentLevel(super.getStatus().getCurrentLevel() + 20);
     }
 
     @Override
-    public void doStudy() {
-        super.doStudy();
+    public void doSpit_fire() {
+        super.doSpit_fire();
         super.getStatus().setCurrentPoints(super.getStatus().getCurrentPoints() + 50);
         super.getStatus().setCurrentLevel(super.getStatus().getCurrentLevel() + 10);
+    }
+
+    @Override
+    public void doBurn() {
+        super.doBurn();
+        super.getStatus().setCurrentPoints(super.getStatus().getCurrentPoints() - 50);
+        super.getStatus().setCurrentLevel(super.getStatus().getCurrentLevel());
     }
 }
