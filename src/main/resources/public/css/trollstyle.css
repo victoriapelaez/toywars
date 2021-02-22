@@ -1,31 +1,30 @@
-
+img{
+    width: 200px;
+    height: 200px;
+}
 *{
-    margin-top: 30pt;
-    margin-bottom: 30pt;
-    margin-left: 30pt;
-    margin-right: 30pt;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    text-align: center;
-
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-left: 30px;
+    margin-right: 30px;
 }
 header{
-    background-image: url("../img/trolls.jpg");
-    border-style: solid;
-    border-color: red;
-    background-size:cover;
+    background-image: url("public/img/trolltrasnp.png");
+    border: rgb(8, 15, 116) 4px dotted;
+    background-size:inherit;
+    text-align: center;
+    color: darkblue;
+    border-radius: 4px;
 }
+footer{
+    font-size: 20px;
+    background-color: black;
+    color: white;
+    text-align: right;
+}
+fieldset{
+    border: rgb(8, 15, 116) 2px solid;
+    border-radius: 4px;
 
-button{
-    border-radius: 30%;
-    color: red;
-}
-aside{
-    float: right;
-    width: 400px;
-    height: auto;
-}
-section{
-    float: left;
-    width: 600px;
-    height: auto;
 }
