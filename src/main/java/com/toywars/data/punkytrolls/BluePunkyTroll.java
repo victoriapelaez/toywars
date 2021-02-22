@@ -15,8 +15,8 @@ public class BluePunkyTroll extends LifeBeing {
     public BluePunkyTroll() {
     }
 
-    public BluePunkyTroll(Status status, String toyName, Integer healthPoints, Integer strength, Integer intelligence, Integer agility, Integer charm) {
-        super(status, toyName, healthPoints, strength, intelligence, agility, charm);
+    public BluePunkyTroll(Status status, String toyName) {
+        super(status, toyName, 1457, 32, 98, 33, 76);
     }
 
     @Override
@@ -42,56 +42,6 @@ public class BluePunkyTroll extends LifeBeing {
     @Override
     public void setToyName(String toyName) {
         super.setToyName(toyName);
-    }
-
-    @Override
-    public Integer getHealthPoints() {
-        return super.getHealthPoints();
-    }
-
-    @Override
-    public void setHealthPoints(Integer healthPoints) {
-        super.setHealthPoints(healthPoints);
-    }
-
-    @Override
-    public Integer getStrength() {
-        return super.getStrength();
-    }
-
-    @Override
-    public void setStrength(Integer strength) {
-        super.setStrength(strength);
-    }
-
-    @Override
-    public Integer getIntelligence() {
-        return super.getIntelligence();
-    }
-
-    @Override
-    public void setIntelligence(Integer intelligence) {
-        super.setIntelligence(intelligence);
-    }
-
-    @Override
-    public Integer getAgility() {
-        return super.getAgility();
-    }
-
-    @Override
-    public void setAgility(Integer agility) {
-        super.setAgility(agility);
-    }
-
-    @Override
-    public Integer getCharm() {
-        return super.getCharm();
-    }
-
-    @Override
-    public void setCharm(Integer charm) {
-        super.setCharm(charm);
     }
 
     @Override
@@ -132,31 +82,43 @@ public class BluePunkyTroll extends LifeBeing {
     @Override
     public void doSing() {
         super.doSing();
+        super.getStatus().setCurrentPoints(super.getStatus().getCurrentPoints() + 50);
+        super.getStatus().setCurrentLevel(super.getStatus().getCurrentLevel() + 10);
     }
 
     @Override
     public void doExplore() {
         super.doExplore();
+        super.getStatus().setCurrentPoints(super.getStatus().getCurrentPoints() + 50);
+        super.getStatus().setCurrentLevel(super.getStatus().getCurrentLevel() + 10);
     }
 
     @Override
     public void doSpit_fire() {
         super.doSpit_fire();
+        super.getStatus().setCurrentPoints(super.getStatus().getCurrentPoints() - 5);
+        super.getStatus().setCurrentLevel(super.getStatus().getCurrentLevel());
     }
 
     @Override
     public void doStudy() {
         super.doStudy();
+        super.getStatus().setCurrentPoints(super.getStatus().getCurrentPoints() + 200);
+        super.getStatus().setCurrentLevel(super.getStatus().getCurrentLevel() + 30);
     }
 
     @Override
     public void doCode() {
         super.doCode();
+        super.getStatus().setCurrentPoints(super.getStatus().getCurrentPoints() + 40);
+        super.getStatus().setCurrentLevel(super.getStatus().getCurrentLevel() + 2);
     }
 
     @Override
     public void doBurn() {
         super.doBurn();
+        super.getStatus().setCurrentPoints(super.getStatus().getCurrentPoints() - 50);
+        super.getStatus().setCurrentLevel(super.getStatus().getCurrentLevel());
     }
 
     // TODO ¿Aquí hay que implementar este método?

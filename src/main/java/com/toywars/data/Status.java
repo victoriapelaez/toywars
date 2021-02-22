@@ -12,37 +12,27 @@ public class Status {
     // private PunkyTroll toy;
 
     // Nivel del monstruito
-    private final Integer initialLevel;
     private Integer currentLevel;
     private Integer finalLevel;
 
     // Puntos del jugador
-    private final Integer initialPoints;
-    private Integer finalScore;
     private Integer currentPoints;
+    private Integer finalScore;
 
     // Acciones
     private Action currentAction;
 
     // Contructor vacío. Inicializa puntos y nivel iniciales.
     public Status() {
-        this.initialPoints = 0;
-        this.initialLevel = 1;
     }
 
     // Contructor. Inicializa puntos y nivel iniciales.
     public Status(Integer currentLevel, Integer finalLevel, Integer finalScore, Integer currentPoints, Action currentAction) {
-        this.initialLevel = 1;
         this.currentLevel = currentLevel;
         this.finalLevel = finalLevel;
-        this.initialPoints = 0;
         this.finalScore = finalScore;
         this.currentPoints = currentPoints;
         this.currentAction = currentAction;
-    }
-
-    public Integer getInitialLevel() {
-        return initialLevel;
     }
 
     public Integer getCurrentLevel() {
@@ -59,10 +49,6 @@ public class Status {
 
     public void setFinalLevel(Integer finalLevel) {
         this.finalLevel = finalLevel;
-    }
-
-    public Integer getInitialPoints() {
-        return initialPoints;
     }
 
     public Integer getFinalScore() {

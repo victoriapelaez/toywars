@@ -1,15 +1,14 @@
 package com.toywars.controller;
 
-import com.toywars.data.Action;
-import com.toywars.data.LifeBeing;
-import com.toywars.data.RenderType;
-import com.toywars.data.Status;
+import com.toywars.data.*;
+import com.toywars.data.punkytrolls.BluePunkyTroll;
+import com.toywars.data.punkytrolls.BrownPunkyTroll;
+import com.toywars.data.punkytrolls.GreenPunkyTroll;
+import com.toywars.data.punkytrolls.RedPunkyTroll;
+import com.toywars.service.GameService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,28 +17,93 @@ import java.util.UUID;
 @RestController
 public class RestAppController {
 
-    @RequestMapping(value = "/rest/do/Action")//Devuelve mensaje JSON
-    public List<Action> doAction() {
-        return null;
+    /**
+     * A method that shows the actions permitted to the user. There ara some other actions, but the method just shows
+     * three of them, chosen randomly.
+     *
+     * Also it calls the doAction method from the GameService class, which, depending on the Troll type and the
+     * action done by the user, it add some levels and add or subtract some points from the Status attributes
+     * currentPoints and currentLevel.
+     *
+     * @return Returns a list of actions of length 3.
+     */
+    /*No hauria de demanar el color, un cop triat el troll al inici de la partida (mètode newGame) el triatge de les
+     * respostes a les accions hauria de ser automàtic, però això no se com implementar-ho*/
+    @RequestMapping(value = "/rest/do/Action") //Devuelve mensaje JSON
+    public List<Action> doAction(@RequestParam String color,
+                                 @RequestParam Action action) {
+        GameService gameService = new GameService();
+        gameService.doAction(color, action);
+        return gameService.getActionsList();
     }
-    @RequestMapping(value = "/rest/getCurrentStatus")////Devulve mensaje Status en JSON
+
+    @RequestMapping(value = "/rest/getCurrentStatus") //Devulve mensaje Status en JSON
     public List<Status> getCurrentStatus() {
-        return null;
+        return LifeBeing ;
     }
-    @RequestMapping(value = "/rest/getStats")//Devuelve mensaje Stats
+
+    /**
+     * This method calls the getStatus method from GameService to set the current score at the final game as the final
+     * score and returns a list of the final scores (points and levels) reached by the user during all the games played.
+     *
+     * @return Returns a list of status.
+     */
+    @RequestMapping(value = "/rest/getStats") //Devuelve mensaje Stats
     public List<Status> getStats() {
-        return null;
+        GameService gameService = new GameService();
+        gameService.getStatus();
+        return UserAction.getFinalStatus();
     }
-    @RequestMapping(value = "/rest/render/RenderType")//Devuelve String como body
+
+    @RequestMapping(value = "/rest/render/RenderType") //Devuelve String como body
     public List<RenderType> render() {
         return null;
     }
+
+    /**
+     * Method that calls GameService's resetLifeBeing method to restart the game.
+     * Restart the game means set points to 0 and level to 1.
+     *
+     * This method also put all the Trolls into an array to get them to the user.
+     * Then the user has to chose a Troll and put it a name.
+     *
+     * @return Returns the list of Trolls.
+     */
     @RequestMapping(value = "/rest/new")//Devolver LifeBeing
-    public LifeBeing newGame() {
+    public LifeBeing newGame(@RequestParam String colour,
+                             @RequestParam String toyName) {
+
+        /*Si en cridat al new Troll ja feim un new Status, si posam que el constructor de Status inicialitzi
+        * els punts i el nivell a o i 1 respectivament, ¿podem eliminar el mètode resetLifeBeing de gameService?
+        * Seria interesant potser mostrar a l'usuari una llista amb els quatre Trolls i els seus
+        * stats (vida, força, ...) i que ell en trii un dels quatre i s'inicii la partida. D'aquesta manera seria
+        * útil el mètode resetLifeBeing.*/
+        GameService gameService = new GameService();
+        gameService.resetLifeBeing();
+
+        LifeBeing redPunkyTroll = new RedPunkyTroll(new Status(), toyName);
+        if (colour.equalsIgnoreCase("red")) {
+            return redPunkyTroll;
+        } else if (colour.equalsIgnoreCase("blue")) {
+            return new BluePunkyTroll(new Status(), toyName);
+        } else if (colour.equalsIgnoreCase("brown")) {
+            return new BrownPunkyTroll(new Status(), toyName);
+        } else if (colour.equalsIgnoreCase("green")) {
+            return new GreenPunkyTroll(new Status(), toyName);
+        }
         return null;
+
+        gameService.setCurrentLifeBeing(redPunkyTroll);
     }
+
+    /**
+     *
+     * @return
+     */
+    /*El mètode ha d'enregistrar les diferents accions realitzades per l'usuari*/
     @RequestMapping(value = "/rest/getActions")//Devolver listado IActions
     public List<Action> getActions() {
+        UserAction.userActionsDoneList.add(caca);
         return null;
     }
 
