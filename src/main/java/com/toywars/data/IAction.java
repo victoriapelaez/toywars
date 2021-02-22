@@ -3,12 +3,10 @@ package com.toywars.data;
 import java.util.List;
 
 /**
- * En este método añadimos todas las acciones, es decir, los métodos que representan esas acciones.
- * Al tratarse de una clase de tipo enum, declaramos los métodos vacíos.
+ * En esta clase (interface) añadimos todas las acciones, es decir, los métodos que representan esas acciones.
+ * Al tratarse de una clase de tipo interface, declaramos los métodos vacíos.
  */
 public interface IAction {
-
-    public List<Action> getCurrentAction();
 
     public void doRun();
     public void doPlay();

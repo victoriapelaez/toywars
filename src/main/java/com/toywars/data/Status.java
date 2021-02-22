@@ -4,27 +4,26 @@ import static com.toywars.data.Action.CREATE;
 
 /**
  * La clase Status representará el nivel y los puntos obtenidos durante la partida.
+ *
  * El nivel solo podrá aumentar, de forma que cada cambio de estado sumará de 0 a n niveles al actual.
+ *
  * Los puntos podrán sumarse o restarse en función de la acción realizada.
  */
 public class Status {
 
-    // TODO ¿Éstos dónde deberían ir?
-    // private final Date actionTime;
-    // private PunkyTroll toy;
-
-    // Nivel del monstruito
+    /**
+     * Puntos y nivel que irán modificándose a medida que el juego avance.
+     */
     private Integer currentLevel;
     private Integer finalLevel;
-
-    // Puntos del jugador
     private Integer currentPoints;
     private Integer finalScore;
 
-    // Acciones
+    /**
+     * Registro de la acción actual.
+     */
     private Action currentAction;
 
-    // Contructor. Inicializa puntos y nivel iniciales.
     public Status() {
         this.currentLevel = 1;
         this.finalLevel = 1;

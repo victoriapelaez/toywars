@@ -23,7 +23,7 @@ public class RestAppController {
     /**
      * Método para resetear el juego.
      *
-     * @param input Un string que representará el color (o tipo) del PunkyTroll introducido por el esuario.
+     * @param input Un string que se conrresponderá con el nombre del PunkyTroll.
      * @return Devuelve un objeto LifeBeing correspondiente al PunkyTroll que ha seleccionado el usuario.
      */
     @PostMapping(value = "/rest/new")
@@ -59,20 +59,28 @@ public class RestAppController {
      * Método que permitirá mostrar el status del troll con un determinado nombre. Dado un string que se corresponde
      * con el nombre del PunkyTroll introducido por el usuario, nos devolverá su correspondiente objeto LifeBeing.
      *
-     * @param input Un string con el nombre añadido por el usuario.
+     * @param input Un string que se conrresponderá con el nombre del PunkyTroll.
      * @return Devuelve un objeto de tipo LifeBeing correspondiente al PunkyTroll con el nombre introducido.
      */
     @PostMapping(value = "/rest/getStatus")
     public LifeBeing getStatus(@RequestBody Map<String, ?> input) {
-        GameService gameService = getGameService();
-
         String trollName = input.get("trollName").toString();
         return GameService.getLifeBeing(trollName);
     }
 
-    @GetMapping(value = "/rest/do/{action}") //Devuelve mensaje JSON
-    public List<Action> doAction() {
-        return null;
+    /**
+     * Método que mostrará las acciones realizadas por el usuario y el efecto generado por dicha acción.
+     *
+     * @param input Un string que se conrresponderá con el nombre del PunkyTroll.
+     * @param action Acción realizada por el usuario.
+     * @return Devulve un objeto de tipo LifeBeing que se corresponderá con el PunkyTroll elegido.
+     * @throws Exception Muestra un mensaje de error especificando que la acción solicitada no existe.
+     */
+    @PostMapping(value = "/rest/do/{action}") //Devuelve mensaje JSON
+    public LifeBeing doAction(@RequestBody Map<String, ?> input,
+                                   @PathVariable Action action) throws Exception {
+        String trollName = input.get("trollName").toString();
+        return GameService.doAction(trollName, action);
     }
 
     /**
@@ -86,15 +94,22 @@ public class RestAppController {
         return Collections.emptyList();
     }
 
+    /**
+     * Método no implementado.
+     * @return Stats
+     * @deprecated
+     */
     @RequestMapping(value = "/rest/getStats") //Devuelve mensaje Stats
     public List<Status> getStats() {
         return null;
     }
 
     /**
+     * Método no implementado.
      * Método de debe mostrar el tipo de rendecizado que posteriormente elegirá el usuario.
      *
-     * @return null.
+     * @return RenderType.
+     * @deprecated
      */
     @RequestMapping(value = "/rest/render/RenderType") //Devuelve String como body
     public List<RenderType> render() {
@@ -103,13 +118,13 @@ public class RestAppController {
 
 
 
-//    @RequestMapping(value = "/get/{uuid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<List<RegisterItem>> getRegisterById(@PathVariable UUID uuid) {
-//        try {
-//            return new ResponseEntity<>(analysisService.getDataRegisterById(uuid), HttpStatus.OK);
-//        } catch (Exception e) {
-//            log.error("register:get/", e);
-//            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
+    /*@RequestMapping(value = "/get/{uuid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<RegisterItem>> getRegisterById(@PathVariable UUID uuid) {
+        try {
+            return new ResponseEntity<>(analysisService.getDataRegisterById(uuid), HttpStatus.OK);
+        } catch (Exception e) {
+            log.error("register:get/", e);
+            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }*/
 }

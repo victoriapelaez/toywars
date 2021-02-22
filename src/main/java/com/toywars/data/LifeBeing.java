@@ -1,5 +1,6 @@
 package com.toywars.data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,20 +12,29 @@ import java.util.List;
  */
 public abstract class LifeBeing implements IAction, IRender {
 
+    /**
+     * Atributo que registra el estado (puntos y nivel) del juguete durante la partida.
+     */
     private Status status;
 
-    // Atributos que puede definir el usuario. Nombre que el usuario puede darle al juguete
+    /**
+     * Lista de las acciones que se van realizando durante la partida.
+     */
+    private List<Action> actionsList;
+
+    /**
+     * Atributos que puede definir el usuario. Nombre que el usuario puede darle al juguete
+     */
     private String toyName;
 
-    // Atributos fijos del juguete
+    /**
+     * Atributos fijos para cada juguete. Representan las características del juguete.
+     */
     private Integer healthPoints;
     private Integer strength;
     private Integer intelligence;
     private Integer agility;
     private Integer charm;
-
-    public LifeBeing() {
-    }
 
     public LifeBeing(Status status, String toyName, Integer healthPoints, Integer strength, Integer intelligence, Integer agility, Integer charm) {
         this.status = status;
@@ -34,6 +44,7 @@ public abstract class LifeBeing implements IAction, IRender {
         this.intelligence = intelligence;
         this.agility = agility;
         this.charm = charm;
+        this.actionsList = new ArrayList<>();
     }
 
     public Status getStatus() {
@@ -50,6 +61,14 @@ public abstract class LifeBeing implements IAction, IRender {
 
     public void setToyName(String toyName) {
         this.toyName = toyName;
+    }
+
+    public List<Action> getActionsList() {
+        return actionsList;
+    }
+
+    public void setActionsList(List<Action> actionsList) {
+        this.actionsList = actionsList;
     }
 
     public Integer getHealthPoints() {
@@ -92,14 +111,6 @@ public abstract class LifeBeing implements IAction, IRender {
         this.charm = charm;
     }
 
-    @Override
-    public List<Action> getCurrentAction() {
-        return null;
-    }
-
-    /*Para utilizar estos métodos (acciones) no es necesario que cada uno de los "Trolls" herede esos métodos,
-    * bastaría con instanciar la clase LifeBeing inicializando la clase del Troll que nos interesa.
-    * E.g.: LifeBeing bluePunkyTroll = new BluePunkyTroll();*/
     @Override
     public void doRun() {
 

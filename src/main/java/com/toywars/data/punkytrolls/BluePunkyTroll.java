@@ -5,6 +5,9 @@ import com.toywars.data.Status;
 
 /**
  * Student
+ * Éste PunkyTroll tiene el rol de student e implementa las acciones correspondientes a su rol además de algunas de
+ * las acciones generales del LifeBeing.
+ * Cada una de las acciones realiza un cambio en el status. Este cambio depende del rol del PunkyTroll.
  */
 public class BluePunkyTroll extends LifeBeing {
     public BluePunkyTroll(String toyName) {

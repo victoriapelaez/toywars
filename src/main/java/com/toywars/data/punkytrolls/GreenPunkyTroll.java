@@ -5,6 +5,9 @@ import com.toywars.data.Status;
 
 /**
  * Guitar player
+ * Éste PunkyTroll tiene el rol de guitar player e implementa las acciones correspondientes a su rol además de algunas
+ * de las acciones generales del LifeBeing.
+ * Cada una de las acciones realiza un cambio en el status. Este cambio depende del rol del PunkyTroll.
  */
 public class GreenPunkyTroll extends LifeBeing {
     public GreenPunkyTroll(String toyName) {
